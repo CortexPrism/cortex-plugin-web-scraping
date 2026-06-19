@@ -1,0 +1,170 @@
+{
+  "name": "cortex-plugin-web-scraping",
+  "version": "1.0.0",
+  "description": "Web Scraping Orchestrator — multi-backend web scraping with automatic failover across Firecrawl, Apify, Bright Data, Oxylabs, and Jina AI. Handles pagination, rate limiting, and structured data extraction.",
+  "kind": "esm",
+  "entryPoint": "mod.ts",
+  "runtime": "deno",
+  "author": "CortexPrism",
+  "license": "MIT",
+  "repository": "https://github.com/CortexPrism/cortex-plugin-web-scraping",
+  "homepage": "https://cortexprism.io/marketplace/plugins/web-scraping",
+  "capabilities": ["tools", "network:fetch"],
+  "tools": [
+    {
+      "name": "scrape_url",
+      "description": "Scrape a single URL with automatic backend selection and failover. Returns clean structured content.",
+      "params": [
+        { "name": "url", "type": "string", "description": "URL to scrape", "required": true },
+        {
+          "name": "format",
+          "type": "string",
+          "description": "Output format",
+          "required": false,
+          "enum": ["markdown", "html", "text", "screenshot"]
+        },
+        {
+          "name": "backend",
+          "type": "string",
+          "description": "Preferred backend (auto-detected if omitted)",
+          "required": false,
+          "enum": ["auto", "firecrawl", "apify", "brightdata", "oxylabs", "jina"]
+        },
+        {
+          "name": "selector",
+          "type": "string",
+          "description": "CSS selector to extract specific content",
+          "required": false
+        },
+        {
+          "name": "timeout_seconds",
+          "type": "number",
+          "description": "Timeout in seconds (default: 30)",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "scrape_crawl",
+      "description": "Crawl a website starting from a base URL, following internal links. Returns all discovered pages.",
+      "params": [
+        {
+          "name": "url",
+          "type": "string",
+          "description": "Base URL to start crawling",
+          "required": true
+        },
+        {
+          "name": "max_pages",
+          "type": "number",
+          "description": "Maximum pages to crawl (default: 50)",
+          "required": false
+        },
+        {
+          "name": "max_depth",
+          "type": "number",
+          "description": "Maximum crawl depth (default: 3)",
+          "required": false
+        },
+        {
+          "name": "path_pattern",
+          "type": "string",
+          "description": "URL path regex pattern to match",
+          "required": false
+        },
+        {
+          "name": "backend",
+          "type": "string",
+          "description": "Preferred backend",
+          "required": false,
+          "enum": ["auto", "firecrawl", "apify"]
+        }
+      ]
+    },
+    {
+      "name": "scrape_search",
+      "description": "Search the web and scrape top results. Combines search engine + scraper in one call.",
+      "params": [
+        { "name": "query", "type": "string", "description": "Search query", "required": true },
+        {
+          "name": "num_results",
+          "type": "number",
+          "description": "Number of results to scrape (default: 10)",
+          "required": false
+        },
+        {
+          "name": "scrape_results",
+          "type": "boolean",
+          "description": "Also scrape each result page",
+          "required": false
+        },
+        {
+          "name": "backend",
+          "type": "string",
+          "description": "Search backend",
+          "required": false,
+          "enum": ["auto", "tavily", "brave", "exa"]
+        }
+      ]
+    },
+    {
+      "name": "scrape_extract",
+      "description": "Extract structured data from a page using AI-powered extraction with a schema",
+      "params": [
+        { "name": "url", "type": "string", "description": "URL to extract from", "required": true },
+        {
+          "name": "schema",
+          "type": "string",
+          "description": "JSON schema describing the data to extract",
+          "required": true
+        },
+        {
+          "name": "backend",
+          "type": "string",
+          "description": "Extraction backend",
+          "required": false,
+          "enum": ["auto", "firecrawl", "jina", "apify"]
+        }
+      ]
+    },
+    {
+      "name": "scrape_status",
+      "description": "Check the health and rate-limit status of all configured scraping backends",
+      "params": []
+    }
+  ],
+  "dependencies": {},
+  "peerDependencies": { "cortex": ">=1.0.0" },
+  "ui": {
+    "settings": [
+      {
+        "section": "Firecrawl",
+        "fields": [
+          { "key": "firecrawlApiKey", "label": "API Key", "type": "secret", "defaultValue": "" }
+        ]
+      },
+      {
+        "section": "Apify",
+        "fields": [
+          { "key": "apifyApiToken", "label": "API Token", "type": "secret", "defaultValue": "" }
+        ]
+      },
+      {
+        "section": "Bright Data",
+        "fields": [
+          { "key": "brightdataApiKey", "label": "API Key", "type": "secret", "defaultValue": "" }
+        ]
+      },
+      {
+        "section": "Jina AI",
+        "fields": [
+          { "key": "jinaApiKey", "label": "API Key", "type": "secret", "defaultValue": "" }
+        ]
+      }
+    ]
+  },
+  "aiDisclosure": {
+    "tools": ["Kilo (DeepSeek) — scaffold and implementation"],
+    "humanReview": true
+  }
+}
