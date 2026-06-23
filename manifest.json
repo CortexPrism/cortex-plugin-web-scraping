@@ -1,7 +1,7 @@
 {
   "name": "cortex-plugin-web-scraping",
-  "version": "1.0.0",
-  "description": "Web Scraping Orchestrator — multi-backend web scraping with automatic failover across Firecrawl, Apify, Bright Data, Oxylabs, and Jina AI. Handles pagination, rate limiting, and structured data extraction.",
+  "version": "1.0.1",
+  "description": "Web Scraping Orchestrator \u2014 multi-backend web scraping with automatic failover across Firecrawl, Apify, Bright Data, Oxylabs, and Jina AI. Handles pagination, rate limiting, and structured data extraction.",
   "kind": "esm",
   "entryPoint": "mod.ts",
   "runtime": "deno",
@@ -9,26 +9,46 @@
   "license": "MIT",
   "repository": "https://github.com/CortexPrism/cortex-plugin-web-scraping",
   "homepage": "https://cortexprism.io/marketplace/plugins/web-scraping",
-  "capabilities": ["tools", "network:fetch"],
+  "capabilities": [
+    "tools",
+    "network:fetch"
+  ],
   "tools": [
     {
       "name": "scrape_url",
       "description": "Scrape a single URL with automatic backend selection and failover. Returns clean structured content.",
       "params": [
-        { "name": "url", "type": "string", "description": "URL to scrape", "required": true },
+        {
+          "name": "url",
+          "type": "string",
+          "description": "URL to scrape",
+          "required": true
+        },
         {
           "name": "format",
           "type": "string",
           "description": "Output format",
           "required": false,
-          "enum": ["markdown", "html", "text", "screenshot"]
+          "enum": [
+            "markdown",
+            "html",
+            "text",
+            "screenshot"
+          ]
         },
         {
           "name": "backend",
           "type": "string",
           "description": "Preferred backend (auto-detected if omitted)",
           "required": false,
-          "enum": ["auto", "firecrawl", "apify", "brightdata", "oxylabs", "jina"]
+          "enum": [
+            "auto",
+            "firecrawl",
+            "apify",
+            "brightdata",
+            "oxylabs",
+            "jina"
+          ]
         },
         {
           "name": "selector",
@@ -77,7 +97,11 @@
           "type": "string",
           "description": "Preferred backend",
           "required": false,
-          "enum": ["auto", "firecrawl", "apify"]
+          "enum": [
+            "auto",
+            "firecrawl",
+            "apify"
+          ]
         }
       ]
     },
@@ -85,7 +109,12 @@
       "name": "scrape_search",
       "description": "Search the web and scrape top results. Combines search engine + scraper in one call.",
       "params": [
-        { "name": "query", "type": "string", "description": "Search query", "required": true },
+        {
+          "name": "query",
+          "type": "string",
+          "description": "Search query",
+          "required": true
+        },
         {
           "name": "num_results",
           "type": "number",
@@ -103,7 +132,12 @@
           "type": "string",
           "description": "Search backend",
           "required": false,
-          "enum": ["auto", "tavily", "brave", "exa"]
+          "enum": [
+            "auto",
+            "tavily",
+            "brave",
+            "exa"
+          ]
         }
       ]
     },
@@ -111,7 +145,12 @@
       "name": "scrape_extract",
       "description": "Extract structured data from a page using AI-powered extraction with a schema",
       "params": [
-        { "name": "url", "type": "string", "description": "URL to extract from", "required": true },
+        {
+          "name": "url",
+          "type": "string",
+          "description": "URL to extract from",
+          "required": true
+        },
         {
           "name": "schema",
           "type": "string",
@@ -123,7 +162,12 @@
           "type": "string",
           "description": "Extraction backend",
           "required": false,
-          "enum": ["auto", "firecrawl", "jina", "apify"]
+          "enum": [
+            "auto",
+            "firecrawl",
+            "jina",
+            "apify"
+          ]
         }
       ]
     },
@@ -134,37 +178,61 @@
     }
   ],
   "dependencies": {},
-  "peerDependencies": { "cortex": ">=1.0.0" },
+  "peerDependencies": {
+    "cortex": ">=0.51.0"
+  },
   "ui": {
     "settings": [
       {
         "section": "Firecrawl",
         "fields": [
-          { "key": "firecrawlApiKey", "label": "API Key", "type": "secret", "defaultValue": "" }
+          {
+            "key": "firecrawlApiKey",
+            "label": "API Key",
+            "type": "secret",
+            "defaultValue": ""
+          }
         ]
       },
       {
         "section": "Apify",
         "fields": [
-          { "key": "apifyApiToken", "label": "API Token", "type": "secret", "defaultValue": "" }
+          {
+            "key": "apifyApiToken",
+            "label": "API Token",
+            "type": "secret",
+            "defaultValue": ""
+          }
         ]
       },
       {
         "section": "Bright Data",
         "fields": [
-          { "key": "brightdataApiKey", "label": "API Key", "type": "secret", "defaultValue": "" }
+          {
+            "key": "brightdataApiKey",
+            "label": "API Key",
+            "type": "secret",
+            "defaultValue": ""
+          }
         ]
       },
       {
         "section": "Jina AI",
         "fields": [
-          { "key": "jinaApiKey", "label": "API Key", "type": "secret", "defaultValue": "" }
+          {
+            "key": "jinaApiKey",
+            "label": "API Key",
+            "type": "secret",
+            "defaultValue": ""
+          }
         ]
       }
     ]
   },
   "aiDisclosure": {
-    "tools": ["Kilo (DeepSeek) — scaffold and implementation"],
+    "tools": [
+      "Kilo (DeepSeek) \u2014 scaffold and implementation"
+    ],
     "humanReview": true
   }
 }

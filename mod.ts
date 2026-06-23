@@ -3,9 +3,9 @@
  * CortexPrism Web Scraping Orchestrator
  * Plugin #110 from plugin-ideas.md
  */
-import type { PluginContext, Tool, ToolResult } from 'cortex/plugins';
+import type { PluginContext, Tool, ToolCallResult } from 'cortex/plugins';
 
-function ok(name: string, output: unknown, s: number): ToolResult {
+function ok(name: string, output: unknown, s: number): ToolCallResult {
   return {
     toolName: name,
     success: true,
@@ -13,7 +13,7 @@ function ok(name: string, output: unknown, s: number): ToolResult {
     durationMs: Date.now() - s,
   };
 }
-function fail(name: string, msg: string, s: number): ToolResult {
+function fail(name: string, msg: string, s: number): ToolCallResult {
   return { toolName: name, success: false, output: '', error: msg, durationMs: Date.now() - s };
 }
 const BACKENDS = ['auto', 'firecrawl', 'apify', 'brightdata', 'oxylabs', 'jina'] as const;
